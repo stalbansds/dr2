@@ -1404,11 +1404,13 @@
           5. Done — submissions land in your email inbox instantly
       -->
 <form
+  id="contactForm"
   class="contact-form"
   action="https://formspree.io/f/mjgawvny"
   method="POST"
 >
- <input type="hidden" name="_next" value="https://stalbansds.github.io/dr2/thankyou.html">
+>
+  <input type="hidden" name="_next" value="thankyou.html">
   <input type="hidden" name="_subject" value="New Enquiry – St Albans Driving School">
 
   <div class="form-row">
@@ -1529,11 +1531,28 @@
 
   // Form submit handler (currently shows a success message)
   // Replace with Formspree action attribute to receive real emails — see comment above form
-  function handleSubmit(e) {
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('successMsg').classList.add('show');
-  }
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/mjgawvny', {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        window.location.href = 'https://stalbansds.github.io/dr2/thankyou.html';
+      } else {
+        btn.textContent = 'Send Enquiry →';
+        btn.disabled = false;
+      }
+    } catch(err) {
+      btn.textContent = 'Send Enquiry →';
+      btn.disabled = false;
+    }
+  });
 
   // Animated road dashes in hero
   for (let i = 0; i < 5; i++) {
