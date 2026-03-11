@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  PAGE TITLE — Edit the text between <title> tags
+  ============================================================ -->
+<title>St Albans Driving School – Learn to Drive with Confidence</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     COLOUR THEME — Edit these variables to change all colours
+     --gold        : main accent colour (buttons, highlights)
+     --gold-light  : hover state of gold
+     --black       : page background
+     --white       : text colour
+     --gray        : secondary / muted text
+     --red         : used in background gradients
+     ============================================================ */
+  :root {
+    --black:      #0a0a0a;
+    --white:      #f5f2ec;
+    --cream:      #f0ead8;
+    --gold:       #e8a020;
+    --gold-light: #f5c85a;
+    --red:        #c42b2b;
+    --gray:       #888580;
+    --card-bg:    #141414;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom gold cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s cubic-bezier(.25,.46,.45,.94), opacity 0.3s;
+    opacity: 0.6;
+  }
+
+  /* ============================================================
+     NAVIGATION
+     ============================================================ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    backdrop-filter: blur(6px);
+  }
+
+  /* ---- LOGO — The SVG icon + text is here ---- */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+  }
+  /* Logo icon — the steering wheel SVG */
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+  /* Logo text — "ST ALBANS" on top, "DRIVING SCHOOL" below */
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.08em;
+    color: var(--white);
+  }
+  /* Edit the school sub-title text colour here */
+  .logo-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-top: 1px;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--white); text-decoration: none;
+    font-size: 0.82rem; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600;
+    opacity: 0.75;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black) !important;
+    padding: 0.55rem 1.3rem;
+    border-radius: 2px;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* Hamburger (mobile only) */
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    background: none; border: none;
+    cursor: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 26px; height: 2px;
+    background: var(--white);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Full-screen mobile nav drawer */
+  .mobile-nav {
+    display: none;
+    position: fixed; inset: 0;
+    background: var(--black);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .mobile-nav.open { opacity: 1; }
+  .mobile-nav a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--white); text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+  .mobile-nav a:hover { color: var(--gold); }
+
+  /* ============================================================
+     HERO SECTION
+     ============================================================ */
+  #home {
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 60% 50%, rgba(232,160,32,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(196,43,43,0.06) 0%, transparent 60%),
+      linear-gradient(160deg, #0a0a0a 0%, #111008 100%);
+  }
+  .hero-road {
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 38%;
+    background: linear-gradient(to top, #0d0d0d 0%, transparent 100%);
+    overflow: hidden;
+  }
+  .road-line {
+    position: absolute;
+    bottom: 20%; left: 50%;
+    width: 3px; background: var(--gold);
+    opacity: 0.25;
+    animation: roadAnim 1.4s linear infinite;
+    transform-origin: bottom center;
+  }
+  @keyframes roadAnim {
+    0%   { height: 0; opacity: 0; bottom: 8%; }
+    30%  { opacity: 0.25; }
+    100% { height: 60%; opacity: 0; bottom: 80%; }
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 7rem 2rem 3rem;
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(232,160,32,0.12);
+    border: 1px solid rgba(232,160,32,0.3);
+    color: var(--gold);
+    font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-badge::before { content: '●'; font-size: 0.5rem; }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 12vw, 8.5rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-family: 'DM Serif Display', serif;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+    color: var(--gray);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.65;
+    font-weight: 300;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.9rem 2.2rem; border-radius: 2px;
+    text-decoration: none; border: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1.5px solid rgba(245,242,236,0.25);
+    color: var(--white); font-weight: 400; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.9rem 2.2rem; border-radius: 2px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* Hero stats row */
+  .hero-stats {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center;
+    gap: clamp(2rem, 8vw, 5rem);
+    padding: 2.5rem 2rem 4rem;
+    animation: fadeUp 0.7s 0.6s ease both;
+  }
+  .stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray);
+    margin-top: 0.3rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: var(--gray); font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: bounce 2s ease infinite; z-index: 2;
+  }
+  .scroll-hint::after {
+    content: ''; width: 1px; height: 42px;
+    background: linear-gradient(to bottom, var(--gray), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ============================================================
+     SHARED SECTION STYLES
+     ============================================================ */
+  section { padding: 5rem 2rem; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 600; margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 28px; height: 1.5px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 4.2rem);
+    letter-spacing: 0.02em; line-height: 1;
+  }
+  .section-title em {
+    font-style: italic;
+    font-family: 'DM Serif Display', serif;
+    color: var(--gold);
+  }
+
+  /* ============================================================
+     SERVICES SECTION
+     ============================================================ */
+  #services { background: linear-gradient(180deg, #0a0a0a 0%, #0f0e0b 100%); }
+  .services-header { max-width: 600px; margin-bottom: 3.5rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    max-width: 1100px; margin: 0 auto;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px; overflow: hidden;
+  }
+  .service-card {
+    background: var(--card-bg);
+    padding: 2.8rem 2.2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: #1a1a16; }
+  .service-icon { font-size: 2.8rem; margin-bottom: 1.5rem; display: block; }
+  .service-num {
+    position: absolute; top: 1.5rem; right: 1.8rem;
+    font-family: 'Bebas Neue', sans-serif; font-size: 4rem;
+    color: rgba(232,160,32,0.06); line-height: 1; pointer-events: none;
+  }
+  .service-tag {
+    display: inline-block;
+    background: rgba(232,160,32,0.12); color: var(--gold);
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 0.25rem 0.7rem;
+    border-radius: 2px; margin-bottom: 1rem; font-weight: 600;
+  }
+  .service-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.85rem; letter-spacing: 0.03em;
+    margin-bottom: 0.9rem; line-height: 1.1;
+  }
+  .service-card p {
+    color: var(--gray); font-size: 0.88rem;
+    line-height: 1.7; margin-bottom: 1.8rem; font-weight: 300;
+  }
+  .service-features { list-style: none; margin-bottom: 2rem; }
+  .service-features li {
+    font-size: 0.82rem; color: rgba(245,242,236,0.7);
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .service-features li::before { content: '→'; color: var(--gold); font-size: 0.75rem; }
+  .service-price { display: flex; align-items: baseline; gap: 0.3rem; }
+  .price-from { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; }
+  .price-val { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--white); }
+  .price-unit { font-size: 0.75rem; color: var(--gray); }
+
+  /* ============================================================
+     GALLERY SECTION — Large vivid illustrated visuals
+     ============================================================ */
+  #gallery { background: #060606; padding-bottom: 6rem; }
+  .gallery-header { max-width: 600px; margin-bottom: 3.5rem; }
+
+  /* Main bento grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 360px 260px;
+    gap: 10px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .gallery-item {
+    border-radius: 8px; overflow: hidden;
+    position: relative; cursor: none;
+    background: #0d0d0d;
+  }
+  /* Bento layout positions */
+  .gallery-item:nth-child(1) { grid-column: 1 / 7;  grid-row: 1; }
+  .gallery-item:nth-child(2) { grid-column: 7 / 10; grid-row: 1; }
+  .gallery-item:nth-child(3) { grid-column: 10 / 13;grid-row: 1; }
+  .gallery-item:nth-child(4) { grid-column: 1 / 5;  grid-row: 2; }
+  .gallery-item:nth-child(5) { grid-column: 5 / 9;  grid-row: 2; }
+  .gallery-item:nth-child(6) { grid-column: 9 / 13; grid-row: 2; }
+
+  .gallery-inner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.6s cubic-bezier(.4,0,.2,1);
+    position: relative; overflow: hidden;
+  }
+  .gallery-item:hover .gallery-inner { transform: scale(1.04); }
+
+  /* Label strip at bottom */
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(6,6,6,0.92) 0%, rgba(6,6,6,0.1) 45%, transparent 100%);
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 1.4rem 1.6rem;
+    transition: opacity 0.3s;
+  }
+  .gallery-caption {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.1em;
+    color: var(--white); line-height: 1;
+    transform: translateY(4px);
+    transition: transform 0.3s;
+  }
+  .gallery-item:hover .gallery-caption { transform: translateY(0); }
+  .gallery-sub {
+    font-size: 0.7rem; color: var(--gold);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-top: 0.25rem; opacity: 0;
+    transition: opacity 0.3s 0.05s;
+    font-weight: 600;
+  }
+  .gallery-item:hover .gallery-sub { opacity: 1; }
+
+  /* Gold corner accent */
+  .gallery-item::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold); z-index: 10;
+    transition: height 0.4s cubic-bezier(.4,0,.2,1);
+    border-radius: 0 0 2px 0;
+  }
+  .gallery-item:hover::before { height: 48px; }
+
+  /* ============================================================
+     RATINGS / REVIEWS SECTION
+     ============================================================ */
+  #ratings { background: linear-gradient(180deg, #080808 0%, #0a0a0a 100%); text-align: center; }
+  .ratings-header { margin-bottom: 3.5rem; }
+  .rating-overall {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+  }
+  .rating-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem; color: var(--gold); line-height: 1;
+  }
+  .stars { font-size: 1.4rem; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .rating-count { font-size: 0.78rem; color: var(--gray); letter-spacing: 0.1em; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem; max-width: 1100px; margin: 3rem auto 0; text-align: left;
+  }
+  .review-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 4px; padding: 1.8rem;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .review-card:hover { border-color: rgba(232,160,32,0.2); transform: translateY(-4px); }
+  .review-card::before {
+    content: '"';
+    position: absolute; top: -0.5rem; left: 1.2rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem; color: var(--gold); opacity: 0.12;
+    line-height: 1; pointer-events: none;
+  }
+  .review-stars  { font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.05em; }
+  .review-text   { font-size: 0.87rem; color: rgba(245,242,236,0.75); line-height: 1.7; margin-bottom: 1.4rem; font-weight: 300; }
+  .review-author { display: flex; align-items: center; gap: 0.8rem; }
+  .review-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a5f, #0d1f36);
+    border: 2px solid rgba(232,160,32,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700; color: var(--gold);
+    flex-shrink: 0; overflow: hidden;
+    box-shadow: 0 0 0 4px rgba(232,160,32,0.08);
+  }
+  /* When a real photo is used inside .review-avatar */
+  .review-avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover; border-radius: 50%;
+  }
+  .review-name { font-weight: 600; font-size: 0.88rem; }
+  .review-meta { font-size: 0.72rem; color: var(--gray); margin-top: 0.15rem; }
+  .review-badge {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    font-size: 0.65rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold);
+    background: rgba(232,160,32,0.1);
+    padding: 0.2rem 0.6rem; border-radius: 100px; font-weight: 600;
+  }
+
+  /* ============================================================
+     CONTACT SECTION
+     ============================================================ */
+  #contact { background: #050505; position: relative; overflow: hidden; }
+  #contact::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,160,32,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .contact-left h2 { margin-bottom: 1.2rem; }
+  .contact-left p {
+    color: var(--gray); font-size: 0.9rem; line-height: 1.75;
+    margin-bottom: 2.5rem; font-weight: 300;
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-item { display: flex; align-items: center; gap: 1rem; }
+  .contact-icon {
+    width: 42px; height: 42px;
+    background: rgba(232,160,32,0.1); border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-item-text { font-size: 0.85rem; }
+  .contact-item-label { color: var(--gray); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.2rem; }
+
+  /* Contact form */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.7rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray); font-weight: 600;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: #111; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px; color: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    padding: 0.85rem 1rem; outline: none;
+    transition: border-color 0.2s; resize: vertical; cursor: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select option { background: #111; }
+  .form-submit {
+    background: var(--gold); color: var(--black);
+    font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 1rem; border: none; border-radius: 2px;
+    cursor: none; transition: background 0.2s, transform 0.15s; margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .form-note { font-size: 0.72rem; color: var(--gray); text-align: center; margin-top: 0.5rem; }
+  .success-msg {
+    display: none; text-align: center; padding: 2rem;
+    background: rgba(232,160,32,0.08);
+    border: 1px solid rgba(232,160,32,0.2);
+    border-radius: 4px; color: var(--gold); font-size: 0.9rem;
+  }
+  .success-msg.show { display: block; }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer {
+    background: #000; padding: 2.5rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-logo-wrap {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.5rem; margin-bottom: 0.7rem;
+  }
+  .footer-logo-icon { width: 28px; height: 28px; opacity: 0.85; }
+  .footer-logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem; letter-spacing: 0.08em;
+  }
+  .footer-logo-text span { color: var(--gold); }
+  footer p { font-size: 0.75rem; color: var(--gray); }
+
+  /* ============================================================
+     TICKER BANNER
+     ============================================================ */
+  .ticker-wrap { overflow: hidden; background: var(--gold); padding: 0.6rem 0; white-space: nowrap; }
+  .ticker-track { display: inline-block; animation: ticker 22s linear infinite; }
+  .ticker-item {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem; letter-spacing: 0.12em;
+    color: var(--black); padding: 0 2.5rem;
+  }
+  .ticker-item::after { content: '✦'; margin-left: 2.5rem; }
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ============================================================
+     SCROLL REVEAL ANIMATION
+     ============================================================ */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+  .reveal-d4 { transition-delay: 0.4s; }
+
+  /* ============================================================
+     RESPONSIVE / MOBILE
+     ============================================================ */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-stats { gap: 2rem; }
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+    }
+    .gallery-item { grid-column: auto !important; grid-row: auto !important; height: 180px; }
+    .gallery-item:nth-child(1) { grid-column: 1 / -1 !important; height: 240px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    section { padding: 4rem 1.2rem; }
+    nav { padding: 1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor elements (do not edit) -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+
+<!-- ============================================================
+  NAVIGATION BAR
+  - To change menu links: edit the <a href="#..."> items below
+  - "Book Now" button links to the #contact section
+  ============================================================ -->
+<nav>
+  <!-- LOGO — Icon + school name -->
+  <a href="#home" class="logo">
+    <!-- Steering wheel SVG icon — change fill colours to restyle -->
+    <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer ring -->
+      <circle cx="20" cy="20" r="17" stroke="#e8a020" stroke-width="2.5"/>
+      <!-- Inner hub -->
+      <circle cx="20" cy="20" r="5" fill="#e8a020"/>
+      <!-- Spokes -->
+      <line x1="20" y1="15" x2="20" y2="5"  stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="20" y1="25" x2="13" y2="34" stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="20" y1="25" x2="27" y2="34" stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <!-- School name — edit text here -->
+    <div class="logo-text">
+      <span class="logo-name">ST ALBANS</span>
+      <span class="logo-sub">Driving School</span>
+    </div>
+  </a>
+
+  <!-- Desktop nav links -->
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#ratings">Reviews</a></li>
+    <!-- CTA button — links to contact form -->
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+
+  <!-- Mobile hamburger button -->
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Full-screen mobile menu -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#home"     onclick="closeMobile()">Home</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#gallery"  onclick="closeMobile()">Gallery</a>
+  <a href="#ratings"  onclick="closeMobile()">Reviews</a>
+  <a href="#contact"  onclick="closeMobile()">Book Now</a>
+</div>
+
+
+<!-- ============================================================
+  HERO SECTION
+  - Edit badge text, headline, sub-heading and button labels below
+  - Stats row: edit the numbers and labels in .hero-stats
+  ============================================================ -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-road">
+    <!-- Animated road lines (generated by JS below) -->
+    <div class="road-line" style="animation-delay:0s"></div>
+    <div class="road-line" style="animation-delay:0.5s; left:calc(50% + 30px)"></div>
+    <div class="road-line" style="animation-delay:1s;  left:calc(50% - 30px)"></div>
+  </div>
+
+  <div class="hero-content">
+    <!-- Small pill badge above headline -->
+    <div class="hero-badge">DVSA Licensed · St Albans, Hertfordshire</div>
+
+    <!-- Main headline — <em> text is in gold italic -->
+    <h1 class="hero-title"><em>Car rental.</em> for Test<br>& <br><em>Driving.</em><br>Lessons</h1>
+
+    <!-- Sub-headline paragraph -->
+    <p class="hero-sub">Professional driving lessons and car rental for your test in St Albans and surrounding areas. Confidence behind the wheel starts here.</p>
+
+    <!-- Call-to-action buttons -->
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact"  class="btn-outline">Book a Lesson</a>
+    </div>
+  </div>
+
+  <!-- Stats bar — edit numbers and labels here -->
+  <div class="hero-stats">
+    <div>
+      <div class="stat-val">2,400+</div>
+      <div class="stat-label">Students Passed</div>
+    </div>
+    <div>
+      <div class="stat-val">98%</div>
+      <div class="stat-label">Pass Rate</div>
+    </div>
+    <div>
+      <div class="stat-val">12yr</div>
+      <div class="stat-label">Experience</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+
+<!-- ============================================================
+  TICKER BANNER
+  - Edit the <span class="ticker-item"> text items below
+  - Items are duplicated so the scroll loops seamlessly
+  ============================================================ -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">Driving Lessons</span>
+    <span class="ticker-item">Car Rental for Test</span>
+    <span class="ticker-item">Certified Instructors</span>
+    <span class="ticker-item">Flexible Scheduling</span>
+    <span class="ticker-item">98% Pass Rate</span>
+    <span class="ticker-item">St Albans &amp; Hertfordshire</span>
+    <!-- Duplicate set for seamless loop -->
+    <span class="ticker-item">Driving Lessons</span>
+    <span class="ticker-item">Car Rental for Test</span>
+    <span class="ticker-item">Certified Instructors</span>
+    <span class="ticker-item">Flexible Scheduling</span>
+    <span class="ticker-item">98% Pass Rate</span>
+    <span class="ticker-item">St Albans &amp; Hertfordshire</span>
+  </div>
+</div>
+
+
+<!-- ============================================================
+  SERVICES SECTION
+  - Edit each service card: icon, tag, title, description, features, price
+  - To add a 3rd service card, copy one <div class="service-card"> block
+  ============================================================ -->
+<section id="services">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="services-header reveal">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Two Ways to <em>Succeed</em></h2>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- SERVICE CARD 1 — Car Rental for Test -->
+      <div class="service-card reveal reveal-d1">
+        <span class="service-num">01</span>
+        <span class="service-icon">🚗</span>
+        <!-- Badge tag — e.g. "Most Popular", "New", "Best Value" -->
+        <div class="service-tag">Most Popular</div>
+        <h3>Car Rental<br>for Test</h3>
+        <p>Show up to your driving test in a reliable, dual-control vehicle you've already practised in. Arrive confident, calm, and test-ready.</p>
+        <!-- Feature bullet points — add or remove <li> items -->
+        <ul class="service-features">
+          <li>Dual-control safety vehicle</li>
+          <li>30-min warm-up session included</li>
+          <li>Instructor accompanies to test centre</li>
+          <li>All insurance covered</li>
+          <li>Multiple vehicle options</li>
+        </ul>
+        <!-- CTA instead of price -->
+        <a href="#contact" class="btn-primary" style="display:inline-block;margin-top:0.5rem;">Get in Touch →</a>
+      </div>
+
+      <!-- SERVICE CARD 2 — Driving Lessons -->
+      <div class="service-card reveal reveal-d2">
+        <span class="service-num">02</span>
+        <span class="service-icon">🎓</span>
+        <div class="service-tag">Beginner Friendly</div>
+        <h3>Professional<br>Driving Lessons</h3>
+        <p>Learn from DVSA-approved instructors who tailor every lesson to your pace. From first-timer to test-ready in record time.</p>
+        <ul class="service-features">
+          <li>1-on-1 personalised coaching</li>
+          <li>Beginner to advanced programmes</li>
+          <li>Motorway &amp; dual carriageway</li>
+          <li>Hazard perception training</li>
+          <li>Intensive crash courses available</li>
+        </ul>
+        <!-- CTA instead of price -->
+        <a href="#contact" class="btn-primary" style="display:inline-block;margin-top:0.5rem;">Get in Touch →</a>
+      </div>
+
+    </div>
+
+    <!-- Trust badges strip — edit or add more badges here -->
+    <div style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:2rem;justify-content:center;" class="reveal reveal-d3">
+      <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--gray);">
+        <span style="color:var(--gold);">✔</span> DVSA Approved
+      </div>
+      <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--gray);">
+        <span style="color:var(--gold);">✔</span> Flexible Hours
+      </div>
+      <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--gray);">
+        <span style="color:var(--gold);">✔</span> Online Booking
+      </div>
+      <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--gray);">
+        <span style="color:var(--gold);">✔</span> Block Booking Discounts
+      </div>
+      <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--gray);">
+        <span style="color:var(--gold);">✔</span> Pick-up from Home
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+  GALLERY SECTION
+  - To replace with real photos: swap the <svg>...</svg> inside each
+    .gallery-inner with: <img src="your-photo.jpg" style="width:100%;height:100%;object-fit:cover;">
+  - Edit captions inside .gallery-caption and .gallery-sub
+  ============================================================ -->
+<section id="gallery">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="gallery-header reveal">
+      <div class="section-label">Our Academy</div>
+      <h2 class="section-title">Life at <em>St Albans DS</em></h2>
+    </div>
+
+    <div class="gallery-grid reveal reveal-d1">
+
+      <!-- CARD 1 — Night city drive (large hero card) -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <svg width="100%" height="100%" viewBox="0 0 660 360" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="sky1" cx="50%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#1a2a4a"/>
+                <stop offset="100%" stop-color="#060810"/>
+              </radialGradient>
+              <radialGradient id="glw1" cx="50%" cy="100%" r="60%">
+                <stop offset="0%" stop-color="rgba(232,160,32,0.35)"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+              <linearGradient id="road1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#111820"/>
+                <stop offset="100%" stop-color="#0a0e14"/>
+              </linearGradient>
+            </defs>
+            <!-- Sky -->
+            <rect width="660" height="360" fill="url(#sky1)"/>
+            <!-- Stars -->
+            <circle cx="80"  cy="40"  r="1.2" fill="white" opacity=".7"/>
+            <circle cx="200" cy="25"  r="1"   fill="white" opacity=".5"/>
+            <circle cx="340" cy="55"  r="1.5" fill="white" opacity=".8"/>
+            <circle cx="480" cy="30"  r="1"   fill="white" opacity=".6"/>
+            <circle cx="580" cy="50"  r="1.2" fill="white" opacity=".7"/>
+            <circle cx="140" cy="70"  r="0.8" fill="white" opacity=".4"/>
+            <circle cx="420" cy="15"  r="1"   fill="white" opacity=".5"/>
+            <circle cx="620" cy="80"  r="0.8" fill="white" opacity=".4"/>
+            <!-- City skyline silhouette -->
+            <path d="M0 220 L30 220 L30 180 L50 180 L50 165 L60 165 L60 180 L80 180 L80 195 L100 195 L100 170 L115 170 L115 155 L125 155 L125 170 L145 170 L145 190 L165 190 L165 200 L185 200 L185 175 L200 175 L200 160 L210 160 L210 175 L230 175 L230 185 L260 185 L260 165 L275 165 L275 145 L285 145 L285 165 L310 165 L310 185 L340 185 L340 170 L360 170 L360 155 L375 155 L375 170 L400 170 L400 185 L430 185 L430 175 L450 175 L450 165 L460 165 L460 175 L485 175 L485 190 L510 190 L510 205 L530 205 L530 185 L545 185 L545 170 L555 170 L555 185 L580 185 L580 200 L610 200 L610 215 L660 215 L660 360 L0 360 Z" fill="#0a0e18" opacity=".9"/>
+            <!-- Building windows glow -->
+            <rect x="52"  y="170" width="4" height="4" rx="0.5" fill="#fbbf24" opacity=".6"/>
+            <rect x="59"  y="170" width="4" height="4" rx="0.5" fill="#fbbf24" opacity=".4"/>
+            <rect x="117" y="160" width="4" height="4" rx="0.5" fill="#fbbf24" opacity=".7"/>
+            <rect x="202" y="165" width="4" height="4" rx="0.5" fill="#93c5fd" opacity=".5"/>
+            <rect x="277" y="150" width="4" height="4" rx="0.5" fill="#fbbf24" opacity=".6"/>
+            <rect x="284" y="150" width="4" height="4" rx="0.5" fill="#fbbf24" opacity=".4"/>
+            <rect x="362" y="160" width="4" height="4" rx="0.5" fill="#fbbf24" opacity=".5"/>
+            <rect x="547" y="175" width="4" height="4" rx="0.5" fill="#fbbf24" opacity=".6"/>
+            <rect x="452" y="170" width="4" height="4" rx="0.5" fill="#93c5fd" opacity=".5"/>
+            <!-- Road surface -->
+            <path d="M0 260 Q330 240 660 260 L660 360 L0 360Z" fill="url(#road1)"/>
+            <!-- Road glow -->
+            <ellipse cx="330" cy="310" rx="300" ry="40" fill="rgba(232,160,32,0.08)"/>
+            <!-- Road markings (perspective) -->
+            <path d="M280 360 L310 270 L320 270 L290 360Z" fill="rgba(232,160,32,0.2)"/>
+            <path d="M340 360 L360 270 L370 270 L350 360Z" fill="rgba(232,160,32,0.2)"/>
+            <!-- Car body -->
+            <g transform="translate(180,240)">
+              <ellipse cx="150" cy="80" rx="140" ry="10" fill="rgba(232,160,32,0.12)"/>
+              <path d="M20 55 Q25 35 60 28 L100 22 L170 22 Q205 25 220 45 L240 58 Q245 65 245 72 L15 72 Q15 65 20 55Z" fill="#1a3055"/>
+              <path d="M25 52 L60 30 L100 24 L170 24 Q200 27 215 44 L235 56 Z" fill="rgba(147,197,253,0.18)"/>
+              <path d="M10 58 Q8 68 9 75 L251 75 Q252 68 250 58 Z" fill="#0d1e36"/>
+              <circle cx="58"  cy="76" r="20" fill="#080d16"/>
+              <circle cx="58"  cy="76" r="14" fill="#6b7280" opacity=".8"/>
+              <circle cx="58"  cy="76" r="9"  fill="#0d1520"/>
+              <circle cx="202" cy="76" r="20" fill="#080d16"/>
+              <circle cx="202" cy="76" r="14" fill="#6b7280" opacity=".8"/>
+              <circle cx="202" cy="76" r="9"  fill="#0d1520"/>
+              <!-- Headlights glow -->
+              <ellipse cx="12"  cy="62" rx="10" ry="5" fill="#fbbf24" opacity=".9"/>
+              <ellipse cx="248" cy="62" rx="10" ry="5" fill="#ef4444" opacity=".7"/>
+              <!-- Headlight beam -->
+              <path d="M2 58 L-60 90 L-60 100 L2 68Z" fill="rgba(251,191,36,0.12)"/>
+            </g>
+            <!-- Ground glow from headlights -->
+            <ellipse cx="200" cy="330" rx="80" ry="18" fill="rgba(251,191,36,0.1)"/>
+            <!-- Overlay gradient vignette -->
+            <rect width="660" height="360" fill="url(#glw1)"/>
+          </svg>
+        </div>
+        <div class="gallery-overlay">
+          <span class="gallery-caption">Night Drive Training</span>
+          <span class="gallery-sub">Evening &amp; weekend sessions available</span>
+        </div>
+      </div>
+
+      <!-- CARD 2 — Test centre arrival -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <svg width="100%" height="100%" viewBox="0 0 300 360" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sky2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#87ceeb" stop-opacity=".4"/>
+                <stop offset="100%" stop-color="#dbeafe" stop-opacity=".15"/>
+              </linearGradient>
+            </defs>
+            <rect width="300" height="360" fill="#0a1220"/>
+            <rect width="300" height="360" fill="url(#sky2)"/>
+            <!-- Large trophy -->
+            <g transform="translate(60,50)">
+              <path d="M90 30 Q40 32 35 80 Q32 110 55 125 L70 130 L70 160 L50 175 L130 175 L110 160 L110 130 L125 125 Q148 110 145 80 Q140 32 90 30Z" fill="none" stroke="#e8a020" stroke-width="3"/>
+              <path d="M90 30 Q40 32 35 80 Q32 110 55 125 L70 130 L70 160 L50 175 L130 175 L110 160 L110 130 L125 125 Q148 110 145 80 Q140 32 90 30Z" fill="rgba(232,160,32,0.08)"/>
+              <!-- Trophy shine -->
+              <path d="M55 50 Q48 80 55 105" fill="none" stroke="rgba(232,160,32,0.3)" stroke-width="2" stroke-linecap="round"/>
+              <!-- Stars inside -->
+              <text x="90" y="100" text-anchor="middle" font-size="36" fill="#e8a020" opacity=".6">★</text>
+              <!-- Base -->
+              <rect x="60" y="175" width="60" height="12" rx="3" fill="#e8a020" opacity=".7"/>
+              <rect x="50" y="187" width="80" height="8"  rx="3" fill="#e8a020" opacity=".5"/>
+              <!-- Handles -->
+              <path d="M35 80 Q15 78 16 100 Q17 118 35 115" fill="none" stroke="#e8a020" stroke-width="2.5"/>
+              <path d="M145 80 Q165 78 164 100 Q163 118 145 115" fill="none" stroke="#e8a020" stroke-width="2.5"/>
+            </g>
+            <!-- "PASSED" text -->
+            <text x="150" y="290" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="38" letter-spacing="6" fill="#e8a020" opacity=".9">PASSED</text>
+            <text x="150" y="318" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" letter-spacing="3" fill="rgba(238,241,247,0.5)" text-transform="uppercase">First Time</text>
+            <!-- Confetti dots -->
+            <circle cx="30"  cy="60"  r="4" fill="#e8a020" opacity=".6"/>
+            <circle cx="260" cy="80"  r="3" fill="#f5c85a" opacity=".5"/>
+            <circle cx="45"  cy="200" r="3" fill="#e8a020" opacity=".4"/>
+            <circle cx="270" cy="220" r="4" fill="#f5c85a" opacity=".5"/>
+            <circle cx="20"  cy="310" r="3" fill="#e8a020" opacity=".3"/>
+            <circle cx="280" cy="150" r="3" fill="#fbbf24" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="gallery-overlay">
+          <span class="gallery-caption">98% Pass Rate</span>
+          <span class="gallery-sub">First time passes every week</span>
+        </div>
+      </div>
+
+      <!-- CARD 3 — Road ahead perspective -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <svg width="100%" height="100%" viewBox="0 0 300 360" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="sun3" cx="50%" cy="35%" r="30%">
+                <stop offset="0%" stop-color="rgba(251,191,36,0.4)"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+              <linearGradient id="rd3" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#1a2535"/>
+                <stop offset="100%" stop-color="#0a0f18"/>
+              </linearGradient>
+            </defs>
+            <rect width="300" height="360" fill="#0d1825"/>
+            <!-- Sky glow -->
+            <rect width="300" height="360" fill="url(#sun3)"/>
+            <!-- Horizon glow -->
+            <ellipse cx="150" cy="155" rx="180" ry="40" fill="rgba(251,191,36,0.12)"/>
+            <!-- Road in perspective -->
+            <path d="M0 360 L110 155 L190 155 L300 360Z" fill="url(#rd3)"/>
+            <!-- Road edge lines -->
+            <path d="M0 360 L110 155" stroke="rgba(232,160,32,0.3)" stroke-width="1.5"/>
+            <path d="M300 360 L190 155" stroke="rgba(232,160,32,0.3)" stroke-width="1.5"/>
+            <!-- Centre dashes (perspective) -->
+            <path d="M150 360 L150 300" stroke="rgba(232,160,32,0.5)" stroke-width="3" stroke-dasharray="20,15"/>
+            <path d="M150 285 L150 240" stroke="rgba(232,160,32,0.35)" stroke-width="2.5" stroke-dasharray="15,12"/>
+            <path d="M150 228 L150 200" stroke="rgba(232,160,32,0.2)" stroke-width="2" stroke-dasharray="10,10"/>
+            <!-- Trees silhouette left -->
+            <path d="M0 250 L20 200 L30 215 L40 190 L50 205 L55 250Z" fill="#060d14"/>
+            <path d="M0 280 L15 245 L25 255 L35 235 L45 255 L50 280Z" fill="#060d14"/>
+            <!-- Trees silhouette right -->
+            <path d="M300 250 L280 200 L270 215 L260 190 L250 205 L245 250Z" fill="#060d14"/>
+            <!-- Distant glow -->
+            <ellipse cx="150" cy="157" rx="35" ry="14" fill="rgba(251,191,36,0.25)"/>
+            <!-- Sun orb -->
+            <circle cx="150" cy="148" r="16" fill="rgba(251,191,36,0.15)" stroke="rgba(251,191,36,0.4)" stroke-width="1.5"/>
+            <circle cx="150" cy="148" r="8"  fill="rgba(251,191,36,0.5)"/>
+          </svg>
+        </div>
+        <div class="gallery-overlay">
+          <span class="gallery-caption">Open Road Ahead</span>
+          <span class="gallery-sub">St Albans &amp; surrounding routes</span>
+        </div>
+      </div>
+
+      <!-- CARD 4 — Instructor & student -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <svg width="100%" height="100%" viewBox="0 0 380 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="380" height="260" fill="#0c1520"/>
+            <!-- Dashboard / interior background -->
+            <path d="M0 120 Q190 100 380 120 L380 260 L0 260Z" fill="#0f1c2e"/>
+            <!-- Steering wheel -->
+            <g transform="translate(100,155)">
+              <circle cx="0" cy="0" r="52" fill="none" stroke="#1e3a5f" stroke-width="8"/>
+              <circle cx="0" cy="0" r="52" fill="none" stroke="#2563a8" stroke-width="2" opacity=".5"/>
+              <circle cx="0" cy="0" r="14" fill="#162d4e"/>
+              <line x1="0" y1="-38" x2="0" y2="-16"  stroke="#2563a8" stroke-width="5" stroke-linecap="round"/>
+              <line x1="0" y1="16"  x2="-33" y2="36" stroke="#2563a8" stroke-width="5" stroke-linecap="round"/>
+              <line x1="0" y1="16"  x2="33"  y2="36" stroke="#2563a8" stroke-width="5" stroke-linecap="round"/>
+              <!-- Horn -->
+              <circle cx="0" cy="0" r="8" fill="#e8a020"/>
+            </g>
+            <!-- Dashboard gauges -->
+            <circle cx="260" cy="145" r="35" fill="none" stroke="#1e3a5f" stroke-width="4"/>
+            <circle cx="260" cy="145" r="35" fill="rgba(30,58,95,0.3)"/>
+            <text x="260" y="140" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd" opacity=".8">KM/H</text>
+            <text x="260" y="155" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="18" fill="var(--white)">0</text>
+            <!-- Needle -->
+            <line x1="260" y1="145" x2="255" y2="120" stroke="#e8a020" stroke-width="2" stroke-linecap="round"/>
+            <!-- Windshield view (road ahead) -->
+            <path d="M30 0 L350 0 L310 95 L70 95Z" fill="#0a1830" opacity=".8"/>
+            <!-- Road in windscreen -->
+            <path d="M155 95 L175 50 L205 50 L225 95Z" fill="#111e30"/>
+            <path d="M190 95 L190 70" stroke="rgba(232,160,32,0.4)" stroke-width="2" stroke-dasharray="8,6"/>
+            <!-- Rearview mirror -->
+            <rect x="160" y="5" width="60" height="25" rx="4" fill="#0d1a2e" stroke="#1e3a5f" stroke-width="1.5"/>
+            <!-- Instructor "DUAL CONTROL" badge -->
+            <rect x="240" y="195" width="120" height="22" rx="3" fill="rgba(232,160,32,0.15)" stroke="rgba(232,160,32,0.35)" stroke-width="1"/>
+            <text x="300" y="210" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="10" letter-spacing="2" fill="#e8a020">DUAL CONTROL</text>
+          </svg>
+        </div>
+        <div class="gallery-overlay">
+          <span class="gallery-caption">Dual-Control Vehicles</span>
+          <span class="gallery-sub">Safety first, always</span>
+        </div>
+      </div>
+
+      <!-- CARD 5 — Map / route -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <svg width="100%" height="100%" viewBox="0 0 380 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="380" height="260" fill="#0a1020"/>
+            <!-- Map grid lines -->
+            <line x1="0" y1="65"  x2="380" y2="65"  stroke="rgba(30,58,95,0.4)" stroke-width="1"/>
+            <line x1="0" y1="130" x2="380" y2="130" stroke="rgba(30,58,95,0.4)" stroke-width="1"/>
+            <line x1="0" y1="195" x2="380" y2="195" stroke="rgba(30,58,95,0.4)" stroke-width="1"/>
+            <line x1="95"  y1="0" x2="95"  y2="260" stroke="rgba(30,58,95,0.4)" stroke-width="1"/>
+            <line x1="190" y1="0" x2="190" y2="260" stroke="rgba(30,58,95,0.4)" stroke-width="1"/>
+            <line x1="285" y1="0" x2="285" y2="260" stroke="rgba(30,58,95,0.4)" stroke-width="1"/>
+            <!-- Roads on map -->
+            <path d="M20 130 Q95 100 190 130 Q285 160 360 130" fill="none" stroke="#1e3a6e" stroke-width="8" stroke-linecap="round"/>
+            <path d="M190 20 Q180 90 190 130 Q200 170 190 240" fill="none" stroke="#1e3a6e" stroke-width="8" stroke-linecap="round"/>
+            <path d="M20 65 Q100 80 160 65 Q220 50 285 65" fill="none" stroke="#162d50" stroke-width="6" stroke-linecap="round"/>
+            <path d="M95 130 Q120 90 160 65" fill="none" stroke="#162d50" stroke-width="5" stroke-linecap="round"/>
+            <!-- Road highlight (selected route) -->
+            <path d="M50 195 Q95 160 190 130 Q250 110 285 65" fill="none" stroke="#e8a020" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10,5" opacity=".8"/>
+            <!-- Location pins -->
+            <g transform="translate(50,195)">
+              <circle cx="0" cy="0" r="10" fill="rgba(232,160,32,0.2)" stroke="#e8a020" stroke-width="2"/>
+              <circle cx="0" cy="0" r="4"  fill="#e8a020"/>
+            </g>
+            <g transform="translate(285,65)">
+              <path d="M0 -20 Q12 -20 12 -8 Q12 0 0 12 Q-12 0 -12 -8 Q-12 -20 0 -20Z" fill="#e8a020"/>
+              <circle cx="0" cy="-8" r="5" fill="#0a1020"/>
+            </g>
+            <!-- Distance label -->
+            <rect x="130" y="105" width="80" height="22" rx="11" fill="#0d1830" stroke="rgba(232,160,32,0.4)" stroke-width="1"/>
+            <text x="170" y="120" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="10" font-weight="600" fill="#e8a020">2.4 miles</text>
+            <!-- St Albans label -->
+            <text x="285" y="42" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" letter-spacing="1.5" fill="rgba(238,241,247,0.6)">TEST CENTRE</text>
+          </svg>
+        </div>
+        <div class="gallery-overlay">
+          <span class="gallery-caption">Test Route Preparation</span>
+          <span class="gallery-sub">We know every local route</span>
+        </div>
+      </div>
+
+      <!-- CARD 6 — Keys handover / Car rental -->
+      <div class="gallery-item">
+        <div class="gallery-inner">
+          <svg width="100%" height="100%" viewBox="0 0 380 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="kglow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(232,160,32,0.15)"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+            </defs>
+            <rect width="380" height="260" fill="#0a0e18"/>
+            <rect width="380" height="260" fill="url(#kglow)"/>
+            <!-- Large key illustration -->
+            <g transform="translate(90, 40)">
+              <!-- Key head (ring) -->
+              <circle cx="100" cy="80" r="55" fill="none" stroke="#e8a020" stroke-width="6"/>
+              <circle cx="100" cy="80" r="40" fill="none" stroke="rgba(232,160,32,0.3)" stroke-width="3"/>
+              <circle cx="100" cy="80" r="18" fill="rgba(232,160,32,0.15)" stroke="#e8a020" stroke-width="3"/>
+              <!-- Key shank -->
+              <rect x="148" y="75" width="110" height="10" rx="5" fill="#e8a020"/>
+              <!-- Key teeth -->
+              <rect x="175" y="85" width="10" height="18" rx="2" fill="#e8a020"/>
+              <rect x="198" y="85" width="10" height="12" rx="2" fill="#e8a020"/>
+              <rect x="220" y="85" width="10" height="20" rx="2" fill="#e8a020"/>
+              <rect x="243" y="85" width="10" height="10" rx="2" fill="#e8a020"/>
+              <!-- Key shine -->
+              <path d="M55 55 Q65 48 78 55" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round"/>
+            </g>
+            <!-- Car rental badge -->
+            <rect x="110" y="195" width="160" height="34" rx="5" fill="rgba(232,160,32,0.1)" stroke="rgba(232,160,32,0.4)" stroke-width="1.5"/>
+            <text x="190" y="210" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" letter-spacing="2" fill="#e8a020">CAR RENTAL</text>
+            <text x="190" y="222" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" letter-spacing="1.5" fill="rgba(238,241,247,0.4)">FOR YOUR TEST DAY</text>
+            <!-- Sparkles -->
+            <text x="55"  y="50"  font-size="14" fill="#e8a020" opacity=".5">✦</text>
+            <text x="310" y="80"  font-size="10" fill="#e8a020" opacity=".4">✦</text>
+            <text x="30"  y="200" font-size="8"  fill="#e8a020" opacity=".3">✦</text>
+          </svg>
+        </div>
+        <div class="gallery-overlay">
+          <span class="gallery-caption">Test Car Handover</span>
+          <span class="gallery-sub">Fully insured · dual control</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+  RATINGS / REVIEWS SECTION
+  - Edit the overall score in .rating-num (e.g. "4.9")
+  - Edit review count in .rating-count
+  - Each review card: edit stars, review text, name and service type
+  - To add a review: copy a .review-card block and paste inside .reviews-grid
+  ============================================================ -->
+<section id="ratings">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="ratings-header reveal">
+      <div class="section-label" style="justify-content:center;">Student Reviews</div>
+      <h2 class="section-title">What Our <em>Students</em> Say</h2>
+      <!-- Overall score — edit number and review count -->
+      <div class="rating-overall" style="margin-top:1.5rem;">
+        <div class="rating-num">4.9</div>
+        <div class="rating-right">
+          <div class="stars">★★★★★</div>
+          <div class="rating-count">Based on 100+ reviews</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+
+      <!--
+        HOW TO ADD STUDENT PHOTOS:
+        Replace the initials text (e.g. "SM") inside .review-avatar with:
+          <img src="student-sarah.jpg" alt="Sarah M.">
+        Make sure the photo file is in the same folder as this HTML file.
+        Recommended photo size: 100x100px, square crop, JPG or PNG.
+      -->
+
+      <!-- REVIEW 1 -->
+      <div class="review-card reveal reveal-d1">
+        <div class="review-badge">Passed 1st Try</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">I was terrified of driving but my instructor made everything so manageable. Passed first time with only 2 minors. The car rental service for the test was a game-changer — I felt totally at ease.</p>
+        <div class="review-author">
+          <!-- TO ADD PHOTO: replace "SM" with <img src="sarah.jpg" alt="Sarah M."> -->
+          <div class="review-avatar">SM</div>
+          <div>
+            <div class="review-name">Sarah M.</div>
+            <div class="review-meta">Driving Lessons · 3 months ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEW 2 -->
+      <div class="review-card reveal reveal-d2">
+        <div class="review-badge">Car Rental</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Renting the test car from St Albans Driving School was the best decision. My own car was a nightmare for parallel parking but their dual-control car was brilliant. Passed with zero faults!</p>
+        <div class="review-author">
+          <!-- TO ADD PHOTO: replace "JK" with <img src="james.jpg" alt="James K."> -->
+          <div class="review-avatar">JK</div>
+          <div>
+            <div class="review-name">James K.</div>
+            <div class="review-meta">Car Rental for Test · 1 month ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEW 3 -->
+      <div class="review-card reveal reveal-d3">
+        <div class="review-badge">Intensive Course</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Completed the intensive course in 2 weeks and passed! The instructors are so patient and professional. Honestly didn't think I'd pass this quickly. Highly recommend to anyone.</p>
+        <div class="review-author">
+          <!-- TO ADD PHOTO: replace "AL" with <img src="aisha.jpg" alt="Aisha L."> -->
+          <div class="review-avatar">AL</div>
+          <div>
+            <div class="review-name">Aisha L.</div>
+            <div class="review-meta">Intensive Course · 2 months ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEW 4 -->
+      <div class="review-card reveal reveal-d1">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Best driving school in St Albans, no question. My instructor explained everything clearly and calmly. After failing with another school, I passed first time here. Worth every penny.</p>
+        <div class="review-author">
+          <!-- TO ADD PHOTO: replace "TC" with <img src="tom.jpg" alt="Tom C."> -->
+          <div class="review-avatar">TC</div>
+          <div>
+            <div class="review-name">Tom C.</div>
+            <div class="review-meta">Driving Lessons · 5 months ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEW 5 -->
+      <div class="review-card reveal reveal-d2">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">The 30-minute warm-up before my test was so helpful. I got to drive around the test centre area and settle my nerves. My instructor's tips made a real difference. Thank you!</p>
+        <div class="review-author">
+          <!-- TO ADD PHOTO: replace "PR" with <img src="priya.jpg" alt="Priya R."> -->
+          <div class="review-avatar">PR</div>
+          <div>
+            <div class="review-name">Priya R.</div>
+            <div class="review-meta">Car Rental for Test · 2 weeks ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEW 6 -->
+      <div class="review-card reveal reveal-d3">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">Great school overall. My instructor was fantastic — very encouraging and knew exactly when to push and when to ease off. Flexible scheduling around my work was a massive bonus.</p>
+        <div class="review-author">
+          <!-- TO ADD PHOTO: replace "DO" with <img src="daniel.jpg" alt="Daniel O."> -->
+          <div class="review-avatar">DO</div>
+          <div>
+            <div class="review-name">Daniel O.</div>
+            <div class="review-meta">Driving Lessons · 4 months ago</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+  CONTACT / BOOKING SECTION
+  - Edit phone, email, location, opening hours below
+  - Form: to connect to a real backend, see the README comment
+    at the bottom of this file
+  ============================================================ -->
+<section id="contact">
+  <div class="contact-inner">
+
+    <!-- Left column — contact info -->
+    <div class="contact-left reveal">
+      <div class="section-label">Get in Touch</div>
+      <h2 class="section-title">Book Your<br><em>First Lesson</em></h2>
+      <p>Ready to start your journey? Fill in the form or reach out directly. We'll get back to you within a few hours to confirm your booking.</p>
+
+      <div class="contact-info">
+
+        <!-- PHONE — edit number here -->
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-text">
+            <div class="contact-item-label">Phone</div>
+            <div>+44 7772 594955</div>
+          </div>
+        </div>
+
+        <!-- EMAIL — edit address here -->
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-text">
+            <div class="contact-item-label">Email</div>
+            <div>stalbansdrivingschool@yahoo.com</div>
+          </div>
+        </div>
+
+        <!-- LOCATION — edit area text here -->
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <div class="contact-item-label">Location</div>
+            <div>St Albans, Hertfordshire &amp; surrounding areas</div>
+          </div>
+        </div>
+
+        <!-- HOURS — edit opening times here -->
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-item-text">
+            <div class="contact-item-label">Hours</div>
+            <div>Mon–Sat: 7am – 8pm &nbsp;·&nbsp; Sun: 9am – 5pm</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right column — enquiry form -->
+    <div class="reveal reveal-d2">
+      <!-- 
+        ── HOW TO CONNECT THIS FORM TO RECEIVE REAL ENQUIRIES ──
+        Option A (Easiest – free):
+          1. Go to formspree.io and create a free account
+          2. Create a form → copy the action URL (e.g. https://formspree.io/f/xyzabc)
+          3. Change the <form> tag below to:
+             <form class="contact-form" action="https://formspree.io/f/YOUR_ID" method="POST">
+          4. Remove the onsubmit="handleSubmit(event)" attribute
+          5. Done — submissions land in your email inbox instantly
+      -->
+<form
+  class="contact-form"
+  action="https://formspree.io/f/mjgawvny"
+  method="POST"
+>
+  <input type="hidden" name="_next" value="thankyou.html">
+  <input type="hidden" name="_subject" value="New Enquiry – St Albans Driving School">
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" name="first_name" placeholder="Jane" required>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" name="last_name" placeholder="Smith" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="jane@email.com" required>
+  </div>
+
+  <div class="form-group">
+    <label>Phone</label>
+    <input type="tel" name="phone" placeholder="+44 7700 000 000">
+  </div>
+
+  <div class="form-group">
+    <label>Service</label>
+    <select name="service" required>
+      <option value="" disabled selected>Select a service</option>
+      <option>Driving Lessons (Beginner)</option>
+      <option>Driving Lessons (Intermediate)</option>
+      <option>Intensive Crash Course</option>
+      <option>Car Rental for Test</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Message</label>
+    <textarea name="message" rows="4" placeholder="Tell us a bit about your experience level and preferred days/times..."></textarea>
+  </div>
+
+  <button type="submit" class="form-submit">Send Enquiry →</button>
+  <p class="form-note">We typically respond within 2 hours during business hours.</p>
+</form>
+      <!-- Success message shown after form submit -->
+      <div class="success-msg" id="successMsg">
+        🎉 Thanks! We've received your enquiry and will be in touch very soon.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+  FOOTER
+  - Edit copyright year and legal text below
+  ============================================================ -->
+<footer>
+  <!-- Footer logo — mirrors the nav logo -->
+  <div class="footer-logo-wrap">
+    <svg class="footer-logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="17" stroke="#e8a020" stroke-width="2.5"/>
+      <circle cx="20" cy="20" r="5" fill="#e8a020"/>
+      <line x1="20" y1="15" x2="20" y2="5"  stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="20" y1="25" x2="13" y2="34" stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="20" y1="25" x2="27" y2="34" stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <!-- Footer school name — edit here -->
+    <div class="footer-logo-text">ST ALBANS <span>DRIVING SCHOOL</span></div>
+  </div>
+  <!-- Footer copyright line — edit year and legal text -->
+  <p>© 2025 St Albans Driving School. All rights reserved. DVSA Approved Driving Instructor.</p>
+</footer>
+
+
+<!-- ============================================================
+  JAVASCRIPT — Cursor, hamburger menu, scroll reveal, form, road animation
+  You generally don't need to edit anything below this line
+  ============================================================ -->
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
+  });
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hamburger / mobile nav
+  const ham  = document.getElementById('hamburger');
+  const mNav = document.getElementById('mobileNav');
+  ham.addEventListener('click', () => {
+    const open = ham.classList.toggle('open');
+    mNav.style.display = open ? 'flex' : 'none';
+    setTimeout(() => {
+      open ? mNav.classList.add('open') : mNav.classList.remove('open');
+    }, 10);
+  });
+  function closeMobile() {
+    ham.classList.remove('open');
+    mNav.classList.remove('open');
+    setTimeout(() => mNav.style.display = 'none', 300);
+  }
+
+  // Scroll reveal — watches .reveal elements and adds .visible when in view
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Form submit handler (currently shows a success message)
+  // Replace with Formspree action attribute to receive real emails — see comment above form
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('successMsg').classList.add('show');
+  }
+
+  // Animated road dashes in hero
+  for (let i = 0; i < 5; i++) {
+    const line = document.createElement('div');
+    line.className = 'road-line';
+    line.style.animationDelay = (i * 0.28) + 's';
+    line.style.left = (50 + (Math.random() - 0.5) * 8) + '%';
+    document.querySelector('.hero-road').appendChild(line);
+  }
+</script>
+
+</body>
+</html>

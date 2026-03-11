@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You – St Albans Driving School</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400&family=DM+Serif+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0a0a;
+    color: #f5f2ec;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+  /* Subtle gold glow behind the card */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,160,32,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .card {
+    max-width: 520px;
+    background: #141414;
+    border: 1px solid rgba(232,160,32,0.2);
+    border-radius: 8px;
+    padding: 3.5rem 3rem;
+    position: relative;
+    animation: rise 0.7s ease both;
+  }
+  /* Gold top bar */
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #e8a020;
+    border-radius: 8px 8px 0 0;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    animation: pop 0.5s 0.4s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  @keyframes pop {
+    from { transform: scale(0.5); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  h1 em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: #e8a020;
+  }
+  p {
+    color: #888580;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin: 1.2rem 0 2rem;
+  }
+  p strong { color: #f5f2ec; font-weight: 400; }
+  .btn {
+    display: inline-block;
+    background: #e8a020;
+    color: #0a0a0a;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn:hover { background: #f5c85a; transform: translateY(-2px); }
+  .footer-note {
+    margin-top: 2.5rem;
+    font-size: 0.72rem;
+    color: #555;
+    letter-spacing: 0.08em;
+  }
+  /* Logo at top */
+  .logo {
+    margin-bottom: 2.5rem;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    text-decoration: none;
+  }
+  .logo svg { width: 32px; height: 32px; }
+  .logo-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem; letter-spacing: 0.08em; color: #f5f2ec;
+  }
+  .logo-sub {
+    font-size: 0.48rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: #e8a020;
+    font-weight: 600; display: block; margin-top: 1px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Logo -->
+  <a href="index.html" class="logo">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="17" stroke="#e8a020" stroke-width="2.5"/>
+      <circle cx="20" cy="20" r="5"  fill="#e8a020"/>
+      <line x1="20" y1="15" x2="20" y2="5"  stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="20" y1="25" x2="13" y2="34" stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="20" y1="25" x2="27" y2="34" stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <span class="logo-name">ST ALBANS</span>
+      <span class="logo-sub">Driving School</span>
+    </div>
+  </a>
+
+  <div class="card">
+    <span class="icon">✅</span>
+    <h1>Thank <em>You!</em></h1>
+    <p>
+      We've received your enquiry and will get back to you shortly.<br><br>
+      Expect a reply within <strong>2 hours</strong> during business hours.<br>
+      For urgent enquiries call us directly on <strong>+44 7772 594955</strong>.
+    </p>
+    <!-- Links back to your main website file — change if your file has a different name -->
+    <a href="index.html" class="btn">← Back to Home</a>
+    <p class="footer-note">ST ALBANS DRIVING SCHOOL · DVSA APPROVED</p>
+  </div>
+
+</body>
+</html>
