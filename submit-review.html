@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share Your Review – St Albans Driving School</title>
+<meta name="description" content="Had a lesson with St Albans Driving School? We'd love to hear from you. Share your experience and photo.">
+<link rel="canonical" href="https://stalbansdrivingschool.co.uk/submit-review.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black:      #0a0a0a;
+    --white:      #f5f2ec;
+    --gold:       #e8a020;
+    --gold-light: #f5c85a;
+    --gray:       #888580;
+    --card-bg:    #141414;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold); border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold); border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .logo { display: flex; align-items: center; gap: 0.55rem; text-decoration: none; }
+  .logo-icon { width: 36px; height: 36px; }
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
+  .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 0.08em; color: var(--white); }
+  .logo-sub  { font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-top: 1px; }
+  .nav-back {
+    display: flex; align-items: center; gap: 0.5rem;
+    color: var(--gray); text-decoration: none;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--gold); }
+  .nav-back::before { content: '←'; font-size: 1rem; }
+
+  /* ── HERO BANNER ── */
+  .hero-banner {
+    margin-top: 72px;
+    position: relative;
+    overflow: hidden;
+    background: var(--gold);
+    padding: 5rem 2rem 4.5rem;
+    text-align: center;
+  }
+  /* Diagonal lines texture */
+  .hero-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 20px,
+      rgba(0,0,0,0.04) 20px,
+      rgba(0,0,0,0.04) 21px
+    );
+    pointer-events: none;
+  }
+  /* Large faded text behind */
+  .hero-banner::after {
+    content: '★';
+    position: absolute;
+    font-size: 28rem; line-height: 1;
+    color: rgba(0,0,0,0.05);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    font-family: serif;
+  }
+  .banner-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(0,0,0,0.12);
+    color: var(--black);
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
+    padding: 0.35rem 1rem; border-radius: 100px;
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-banner h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 9vw, 6.5rem);
+    line-height: 0.95; letter-spacing: 0.02em;
+    color: var(--black);
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-banner h1 em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: #3a1f00;
+  }
+  .hero-banner p {
+    font-size: 1rem; line-height: 1.65; font-weight: 300;
+    color: rgba(0,0,0,0.65);
+    max-width: 460px; margin: 1.2rem auto 0;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  /* ── FORM CARD ── */
+  .form-wrap {
+    max-width: 680px; margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+  .form-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--gold);
+    border-radius: 8px 8px 0 0;
+  }
+
+  .form-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; letter-spacing: 0.04em;
+    margin-bottom: 0.3rem; line-height: 1;
+  }
+  .form-section-title em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic; color: var(--gold);
+  }
+  .form-section-sub {
+    font-size: 0.82rem; color: var(--gray);
+    font-weight: 300; margin-bottom: 2.2rem;
+  }
+
+  .review-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.7rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray); font-weight: 600;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: #0d0d0d;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 3px; color: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    padding: 0.85rem 1rem; outline: none;
+    transition: border-color 0.2s; resize: vertical; cursor: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select option { background: #111; }
+
+  /* Star rating selector */
+  .star-rating {
+    display: flex; flex-direction: row-reverse;
+    gap: 0.3rem; justify-content: flex-end;
+  }
+  .star-rating input { display: none; }
+  .star-rating label {
+    font-size: 2rem; color: rgba(255,255,255,0.15);
+    cursor: none; transition: color 0.15s;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .star-rating input:checked ~ label,
+  .star-rating label:hover,
+  .star-rating label:hover ~ label { color: var(--gold); }
+
+  /* Photo upload */
+  .photo-upload-area {
+    border: 2px dashed rgba(232,160,32,0.25);
+    border-radius: 4px; padding: 2rem;
+    text-align: center; cursor: none;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .photo-upload-area:hover {
+    border-color: rgba(232,160,32,0.5);
+    background: rgba(232,160,32,0.03);
+  }
+  .photo-upload-area input[type="file"] {
+    position: absolute; inset: 0;
+    opacity: 0; cursor: none; width: 100%; height: 100%;
+    border: none; padding: 0; background: none;
+  }
+  .photo-upload-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+  .photo-upload-text { font-size: 0.85rem; color: var(--gray); font-weight: 300; }
+  .photo-upload-text strong { color: var(--gold); font-weight: 600; }
+  .photo-preview {
+    display: none; margin-top: 1rem;
+    border-radius: 4px; overflow: hidden;
+    max-height: 200px;
+  }
+  .photo-preview img { width: 100%; object-fit: cover; max-height: 200px; border-radius: 4px; }
+
+  /* Optional label */
+  .optional-tag {
+    font-size: 0.65rem; color: var(--gray);
+    background: rgba(255,255,255,0.05);
+    padding: 0.1rem 0.5rem; border-radius: 100px;
+    margin-left: 0.5rem; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 400;
+    vertical-align: middle;
+  }
+
+  /* Submit button */
+  .form-submit {
+    background: var(--gold); color: var(--black);
+    font-weight: 700; font-size: 0.9rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 1.1rem; border: none; border-radius: 3px;
+    cursor: none; transition: background 0.2s, transform 0.15s;
+    margin-top: 0.5rem; width: 100%;
+  }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .form-note {
+    font-size: 0.72rem; color: var(--gray);
+    text-align: center; margin-top: 0.5rem; line-height: 1.6;
+  }
+
+  /* Success message */
+  .success-msg {
+    display: none; text-align: center; padding: 2.5rem 2rem;
+    background: rgba(232,160,32,0.06);
+    border: 1px solid rgba(232,160,32,0.2);
+    border-radius: 6px;
+  }
+  .success-msg.show { display: block; }
+  .success-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+  .success-msg h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; letter-spacing: 0.05em;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .success-msg p { font-size: 0.88rem; color: var(--gray); font-weight: 300; line-height: 1.7; }
+
+  /* Footer */
+  footer {
+    background: #000; padding: 2rem; text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  footer p { font-size: 0.75rem; color: var(--gray); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .form-card { padding: 2rem 1.5rem; }
+    .hero-banner { padding: 4rem 1.5rem 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">
+    <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="17" stroke="#e8a020" stroke-width="2.5"/>
+      <circle cx="20" cy="20" r="5" fill="#e8a020"/>
+      <line x1="20" y1="15" x2="20" y2="5"  stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="20" y1="25" x2="13" y2="34" stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="20" y1="25" x2="27" y2="34" stroke="#e8a020" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-name">ST ALBANS</span>
+      <span class="logo-sub">Driving School</span>
+    </div>
+  </a>
+  <a href="reviews.html" class="nav-back">Back to Reviews</a>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="hero-banner">
+  <div class="banner-label">We'd love to hear from you</div>
+  <h1>Got a lesson<br>with <em>us?</em><br>We would <em>love love</em><br>to hear from you</h1>
+  <p>Your review helps other learners find us — and it means the world to our team. Takes less than 2 minutes!</p>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="form-section-title">Share Your <em>Experience</em></div>
+    <div class="form-section-sub">All fields marked * are required. Photo is completely optional.</div>
+
+    <form class="review-form" id="reviewForm">
+
+      <!-- Name + Test Date -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" name="name" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label>Test Date *</label>
+          <input type="date" name="test_date" required>
+        </div>
+      </div>
+
+      <!-- Service -->
+      <div class="form-group">
+        <label>Service *</label>
+        <select name="service" required>
+          <option value="" disabled selected>What service did you use?</option>
+          <option>Driving Lessons</option>
+          <option>Car Rental for Test</option>
+          <option>Intensive Crash Course</option>
+          <option>Driving Lessons + Car Rental</option>
+        </select>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="form-group">
+        <label>Your Rating *</label>
+        <div class="star-rating">
+          <input type="radio" id="s5" name="rating" value="★★★★★" required>
+          <label for="s5" title="5 stars">★</label>
+          <input type="radio" id="s4" name="rating" value="★★★★☆">
+          <label for="s4" title="4 stars">★</label>
+          <input type="radio" id="s3" name="rating" value="★★★☆☆">
+          <label for="s3" title="3 stars">★</label>
+          <input type="radio" id="s2" name="rating" value="★★☆☆☆">
+          <label for="s2" title="2 stars">★</label>
+          <input type="radio" id="s1" name="rating" value="★☆☆☆☆">
+          <label for="s1" title="1 star">★</label>
+        </div>
+      </div>
+
+      <!-- Review text -->
+      <div class="form-group">
+        <label>Your Review *</label>
+        <textarea name="review" rows="5" placeholder="Tell us about your experience — your instructor, how you felt, and how you got on in your test..." required></textarea>
+      </div>
+
+      <!-- Photo upload (optional) -->
+      <div class="form-group">
+        <label>Pass Photo <span class="optional-tag">Optional</span></label>
+        <div class="photo-upload-area" id="uploadArea">
+          <input type="file" name="photo" accept="image/*" id="photoInput" onchange="previewPhoto(this)">
+          <span class="photo-upload-icon">📸</span>
+          <div class="photo-upload-text">
+            <strong>Click to upload</strong> your pass photo<br>
+            Holding your certificate? Even better! JPG or PNG.
+          </div>
+          <div class="photo-preview" id="photoPreview">
+            <img id="previewImg" src="" alt="Preview">
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="form-submit">Submit My Review →</button>
+      <p class="form-note">
+        Reviews are checked before being added to the website.<br>
+        We may contact you to confirm before publishing.
+      </p>
+    </form>
+
+    <!-- Success state -->
+    <div class="success-msg" id="successMsg">
+      <span class="success-icon">🎉</span>
+      <h3>Thank You!</h3>
+      <p>We've received your review and absolutely love hearing from our students.<br>
+      We'll add it to the website shortly. You're a star! ★</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 St Albans Driving School. All rights reserved. DVSA Approved Driving Instructor.</p>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
+  });
+  (function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+    requestAnimationFrame(animateRing);
+  })();
+
+  // Photo preview
+  function previewPhoto(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('previewImg').src = e.target.result;
+        document.getElementById('photoPreview').style.display = 'block';
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // Form submit via Formspree
+  document.getElementById('reviewForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('https://formspree.io/f/mbdzkbna', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('successMsg').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        btn.textContent = 'Submit My Review →';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    } catch(err) {
+      btn.textContent = 'Submit My Review →';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
+  });
+</script>
+
+</body>
+</html>
