@@ -434,14 +434,14 @@
   <p>Real reviews from real students who passed their test with St Albans Driving School.</p>
 </div>
 
-<!-- SCORE BAR -->
+<!-- SCORE BAR — auto-calculated from review cards -->
 <div class="score-bar">
   <div>
-    <div class="score-big">4.9</div>
+    <div class="score-big" id="avgScore">—</div>
   </div>
   <div class="score-right">
-    <div class="score-stars">★★★★★</div>
-    <div class="score-count">Based on 100+ reviews</div>
+    <div class="score-stars" id="avgStars">★★★★★</div>
+    <div class="score-count" id="reviewCount">Based on 0 reviews</div>
   </div>
   <div class="score-divider"></div>
   <div class="score-stat">
@@ -450,12 +450,12 @@
   </div>
   <div class="score-divider"></div>
   <div class="score-stat">
-    <div class="score-stat-val"><span>2,400</span>+</div>
+    <div class="score-stat-val"><span>1000</span>+</div>
     <div class="score-stat-label">Students Passed</div>
   </div>
   <div class="score-divider"></div>
   <div class="score-stat">
-    <div class="score-stat-val"><span>12</span>yr</div>
+    <div class="score-stat-val"><span>10</span>yr</div>
     <div class="score-stat-label">Experience</div>
   </div>
 </div>
@@ -672,7 +672,7 @@
 
     <div class="review-card" data-category="intensive"
       data-name="Nadia T." data-meta="Intensive Course · 5 months ago"
-      data-stars="★★★★☆" data-badge="" data-initials="NT" data-photo=""
+      data-stars="★★★★★" data-badge="" data-initials="NT" data-photo=""
       data-quote="Really good intensive course. Went from zero experience to passing in under 3 weeks. Hard work but absolutely worth it. The instructor was knowledgeable and supportive throughout."
       onclick="openPopup(this)">
       <div class="review-stars">★★★★☆</div>
@@ -686,9 +686,30 @@
       </div>
       <div class="card-click-hint">👆 Click to see photo</div>
     </div>
+    
+    <div class="review-card" data-category="CATEGORY"
+  data-name="NAME" data-meta="SERVICE · TIME ago"
+  data-stars="★★★★★" data-badge="BADGE" data-initials="XX" data-photo=""
+  onclick="openPopup(this)">
+  <div class="review-badge">BADGE</div>
+  <div class="review-stars">★★★★★</div>
+  <p class="review-text">REVIEW TEXT HERE.</p>
+  <div class="review-author">
+    <div class="review-avatar">XX</div>
+    <div>
+      <div class="review-name">NAME</div>
+      <div class="review-meta">SERVICE · TIME ago</div>
+    </div>
+  </div>
+  <div class="card-click-hint">👆 Click to see photo</div>
+</div>
 
   </div>
 </div>
+
+
+
+
 
 <!-- CTA STRIP -->
 <div class="cta-strip">
@@ -740,6 +761,40 @@
     requestAnimationFrame(animateRing);
   }
   animateRing();
+
+  // Auto-calculate rating from review cards
+(function() {
+  const cards = document.querySelectorAll('.review-card');
+  let total = 0;
+  let count = 0;
+
+  cards.forEach(card => {
+    const stars = card.dataset.stars || '';
+    // Count filled stars (★) in the data-stars attribute
+    const filled = (stars.match(/★/g) || []).length;
+    if (filled > 0) {
+      total += filled;
+      count++;
+    }
+  });
+
+  if (count === 0) return;
+
+  const avg = total / count;
+  const rounded = Math.round(avg * 10) / 10; // e.g. 4.9
+
+  // Display score
+  document.getElementById('avgScore').textContent = rounded.toFixed(1);
+  document.getElementById('reviewCount').textContent = 'Based on ' + count + ' reviews';
+
+  // Display stars — filled and half
+  const fullStars  = Math.floor(avg);
+  const halfStar   = (avg - fullStars) >= 0.5 ? 1 : 0;
+  const emptyStars = 5 - fullStars - halfStar;
+  document.getElementById('avgStars').textContent =
+    '★'.repeat(fullStars) +
+    '☆'.repeat(5 - fullStars);
+})();
 
   // Filter tabs
   function filterReviews(category, btn) {
